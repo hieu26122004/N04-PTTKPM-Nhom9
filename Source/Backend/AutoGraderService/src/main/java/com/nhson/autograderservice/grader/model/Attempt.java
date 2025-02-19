@@ -10,6 +10,7 @@ import org.springframework.data.domain.Persistable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 @Entity
@@ -21,30 +22,23 @@ public class Attempt implements Persistable<String> {
     @Id
     @Column(name = "attempt_id", nullable = false)
     private String attemptId;
-
     @Column(name = "user_id", nullable = false)
     private String userId;
-
     @Embedded
     private Result result;
-
     @Transient
     private List<Question> questions;
-
     @ElementCollection
     @CollectionTable(name = "attempt_answers", joinColumns = @JoinColumn(name = "attempt_id"))
     private List<Answer> userAnswer;
-
     @Column(name = "exam_id", nullable = false)
     private String examId;
     @Column(name = "exam_name", nullable = false)
     private String examName;
-
     @Column(name = "total_time")
     private Integer totalTime;
     @CreatedDate
     private Date timestamp;
-
     @Transient
     private Boolean isNew = false;
 
@@ -72,6 +66,13 @@ public class Attempt implements Persistable<String> {
         this.userAnswer = userAnswer;
         this.examId = examId;
         this.totalTime = totalTime;
+    }
+
+    public Attempt(ExamSession examSession){
+        this.attemptId = UUID.randomUUID().toString();
+        this.userId = examSession.getUserId();
+        this.userAnswer = examSession.getUserAnswers();
+        this.totalTime = examSession.getTotalTime();
     }
 
     public void calculateResult() {

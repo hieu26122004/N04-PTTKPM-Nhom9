@@ -43,6 +43,7 @@ public class Exam implements Persistable<String> {
     private LocalDateTime lastUpdatedDate;
     private LocalDateTime due;
     private Integer maxAttempts;
+    private LocalDateTime startAt;
     @Enumerated(EnumType.STRING)
     private Status status;
     @Enumerated(EnumType.STRING)

@@ -1,116 +1,235 @@
 .announcements-container {
+    padding: 1.5rem;
+  }
+  
+  .announcements-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    
+    h2 {
+      color: var(--blue-color);
+      font-size: 1.75rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+  
+      i {
+        font-size: 1.5rem;
+      }
+    }
+  
+    .announcement-count {
+      background: rgba(0, 123, 255, 0.1);
+      color: var(--blue-color);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+  }
+  
+  .announcements-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    background-color: var(--bg-color);
-    border-radius: 8px;
-}
-
-.announcement-card {
-    padding: 15px;
-    background-color: var(--card-bg);
-    border: 1px solid var(--orange-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.announcement-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.card-header {
+    gap: 1.5rem;
+  }
+  
+  .announcement-card {
+    position: relative;
+    background: var(--card-bg-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+  
+    .priority-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+  
+      &.urgent {
+        background: var(--red-color);
+      }
+      &.important {
+        background: var(--orange-color);
+      }
+      &.info {
+        background: var(--blue-color);
+      }
+    }
+  }
+  
+  .card-header {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem 1.5rem 1rem;
+  
+    .icon-wrapper {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: var(--blue-color);
+      color: white;
+      font-size: 1.5rem;
+    }
+  }
+  
+  .header-content {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .title-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.avatar-icon {
-    font-size: 24px;
-    color: var(--orange-color);
-    background-color: var(--orange-light);
-    border-radius: 50%;
-    padding: 8px;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  
+    h3 {
+      margin: 0;
+      color: var(--text-light);
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  }
+  
+  .type-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  
+    &.urgent {
+      background: rgba(220, 53, 69, 0.1);
+      color: var(--red-color);
+    }
+    &.important {
+      background: rgba(255, 69, 0, 0.1);
+      color: var(--orange-color);
+    }
+    &.info {
+      background: rgba(0, 123, 255, 0.1);
+      color: var(--blue-color);
+    }
+  }
+  
+  .metadata {
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.card-header-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.card-title {
-    margin: 0;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: var(--text-color);
-}
-
-.card-subtitle {
-    font-size: 0.9em;
+    gap: 1rem;
     color: var(--text-light);
-    display: flex;
-    align-items: center;
-}
-
-.time-icon {
-    margin-right: 5px;
-}
-
-.card-content {
-    font-size: 1em;
+    opacity: 0.7;
+    font-size: 0.9rem;
+  
+    span {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+  }
+  
+  .card-body {
+    padding: 0 1.5rem 1.5rem;
     color: var(--text-light);
-    margin-bottom: 10px;
-}
-
-.card-actions {
+    line-height: 1.6;
+  
+    p {
+      margin: 0;
+    }
+  }
+  
+  .card-actions {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     justify-content: flex-end;
-}
-
-.action-button {
-    color: var(--orange-color);
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px 10px;
-    background-color: var(--orange-light);
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-}
-
-.action-button:hover {
-    background-color: var(--orange-hover);
-}
-
-.action-button i {
-    margin-left: 5px;
-}
-
-.empty-state {
+  
+    .action-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--blue-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: gap 0.3s ease;
+  
+      &:hover {
+        gap: 0.75rem;
+      }
+    }
+  }
+  
+  .empty-state {
     text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: var(--bg-dark);
-}
-
-.empty-icon {
-    font-size: 36px;
-    color: #ccc;
-    margin-bottom: 10px;
-}
-
-h2 {
-    margin: 0;
-    font-size: 1.5em;
-    color: var(--text-light);
-}
-
-p {
-    margin: 0;
-    color: var(--text-light);
-}
+    padding: 4rem 2rem;
+    background: var(--card-bg-dark);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  
+    .empty-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1.5rem;
+      background: rgba(0, 123, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      color: var(--blue-color);
+    }
+  
+    h3 {
+      color: var(--text-light);
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+    }
+  
+    p {
+      color: var(--text-light);
+      opacity: 0.7;
+      margin: 0;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .announcements-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  
+    .title-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  
+    .metadata {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }

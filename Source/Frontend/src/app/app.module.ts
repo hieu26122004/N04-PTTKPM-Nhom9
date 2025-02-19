@@ -42,6 +42,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ExitExamGuard } from './services/exit-exam.guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LinkifyPipe } from './linkify.pipe';
 
 
 const routes: Routes = [
@@ -52,7 +55,7 @@ const routes: Routes = [
   { path: 'create', component: CreateExamComponent },
   { path: 'create-question', component: CreateQuestionComponent },
   { path: 'exam/:id', component: ExamDetailComponent },
-  { path: 'take/:id', component: TakeExamComponent },
+  { path: 'take/:id', component: TakeExamComponent, canDeactivate: [ExitExamGuard] },
   { path: 'attempt-details/:attemptId', component: AttemptDetailsComponent },
   { path: 'history', component: AttemptsComponent },
   { path: 'class/:id', component: ClassDetailsComponent },
@@ -97,7 +100,8 @@ const routes: Routes = [
     ParticipantsComponent,
     AnnouncementsComponent,
     MaterialsComponent,
-    AssignmentsComponent
+    AssignmentsComponent,
+    LinkifyPipe
   ],
   imports: [
     BrowserModule,
@@ -112,7 +116,8 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     MatIconModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

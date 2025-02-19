@@ -2,6 +2,7 @@ package com.nhson.classservice.application.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,22 +22,25 @@ public class Announcement {
     @Id
     @Column(name = "announcement_id", nullable = false, unique = true)
     private String announcementId;
+
     @Column(name = "title", nullable = false)
     private String title;
+
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
+
     @Column(name = "date", nullable = false)
     @CreatedDate
     private LocalDateTime date;
+
     @Column(name = "expires_at", nullable = true)
     private LocalDateTime expiresAt;
 
     @Enumerated(EnumType.STRING)
     private AnnouncementType type;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne
     @JoinColumn(name = "class_id")
-    @JsonBackReference
+    @JsonIgnore
     private Class clazz;
-
 }
-

@@ -1,5 +1,5 @@
 <div #navComponent class="nav-container" style="height: 17vh;">
-    <app-nav ></app-nav>
+  <app-nav></app-nav>
 </div>
 
 <div class="container-fluid">
@@ -8,9 +8,33 @@
       <app-sidebar></app-sidebar>
     </div>
     <div class="col-md-9 content-container">
-      <!-- <app-exams></app-exams> -->
+      <!-- Toast notifications -->
+      <!-- <div *ngIf="incompleteExam && incompleteExam.length > 0" class="toast-container"> -->
+        <div *ngFor="let examSession of incompleteExam; let index = index; trackBy: trackBySessionId" 
+             class="custom-toast"
+             [ngStyle]="{ 'top.px': navHeight + 20 + (index * 80) }"
+             [@toastAnimation]>
+          <div class="toast-header">
+            <i class="fa fa-exclamation-circle"></i>
+            <strong class="toast-title">Bài thi chưa hoàn thành</strong>
+            <strong class="toast-subtitle">{{ examSession.examName }}</strong>
+            <button type="button" 
+                    class="close-btn" 
+                    (click)="removeToast(index)">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="toast-body">
+            <a class="continue-btn"
+              [routerLink]="['/take', examSession.examId]"
+              [state]="{ session: examSession }">
+              Tiếp tục làm bài
+            </a>
+          </div>
+        </div>
+      <!-- </div> -->
+
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
-

@@ -46,7 +46,7 @@ public class GradeService {
         if (exam.getDue() != null && exam.getDue().isBefore(LocalDateTime.now())) {
             throw new ExamException("This exam is overdue and cannot be graded.", "EXAM_OVERDUE");
         }
-        String userId = authenticationToken.getToken().getSubject();
+        String userId = (authenticationToken != null) ? authenticationToken.getToken().getSubject() : "";
 
         if (questions.size() != answers.size()) {
             throw new ExamException("The number of answers does not match the number of questions.", "INVALID_ATTEMPT");

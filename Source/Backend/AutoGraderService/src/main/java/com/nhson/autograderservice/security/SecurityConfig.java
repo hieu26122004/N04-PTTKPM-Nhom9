@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/exam/**","/attempts/**").hasAuthority("SCOPE_USER")
+                                .requestMatchers("/exam/**","/attempts/**","/exam-session/**").hasAuthority("SCOPE_USER")
                                 .requestMatchers("/hello").permitAll()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

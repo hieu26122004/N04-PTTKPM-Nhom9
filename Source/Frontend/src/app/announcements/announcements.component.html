@@ -1,45 +1,57 @@
 <div class="announcements-container">
-  <!-- Check if there are announcements -->
-  <div *ngIf="announcements.length; else empty">
-    <!-- Loop through announcements -->
-    <div
-      class="announcement-card orange-border-thin card-hover:hover"
-      *ngFor="let announcement of announcements"
-      [@fadeIn]
-    >
+  <div class="announcements-header">
+    <h2>
+      <i class="fa fa-bullhorn" aria-hidden="true"></i>
+      Announcements
+    </h2>
+    <span class="announcement-count" *ngIf="announcements.length">
+      {{ announcements.length }} updates
+    </span>
+  </div>
+
+  <div class="announcements-list" *ngIf="announcements.length; else empty">
+    <div class="announcement-card" *ngFor="let announcement of announcements">
+      <div class="priority-indicator" [class]="announcement.type?.toLowerCase()"></div>
+      
       <div class="card-header">
-        <div class="avatar-icon">
-          <i class="fa fa-bullhorn"></i>
+        <div class="icon-wrapper">
+          <i class="fa" [ngClass]="getAnnouncementIcon(announcement.type)"></i>
         </div>
-        <div class="card-header-text">
-          <h3 class="card-title">{{ announcement.title }}</h3>
-          <p class="card-subtitle">
-            <i class="fa fa-clock-o time-icon"></i>
-            {{ announcement.date | date: 'MMM d, y, h:mm a' }}
-          </p>
+        
+        <div class="header-content">
+          <div class="title-row">
+            <h3>{{ announcement.title }}</h3>
+            <span class="type-badge" [class]="announcement.type?.toLowerCase()">
+              {{ announcement.type }}
+            </span>
+          </div>
+          
+          <div class="metadata">
+            <span class="date">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              {{ announcement.date | date:'MMM d, y, h:mm a' }}
+            </span>
+            <span class="expires" *ngIf="announcement.expiresAt">
+              <i class="fa fa-hourglass" aria-hidden="true"></i>
+              Expires: {{ announcement.expiresAt | date:'MMM d' }}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div class="card-content">
-        <p>{{ announcement.content }}</p>
-      </div>
-
-      <!-- Optional link actions -->
-      <div class="card-actions" *ngIf="announcement.link">
-        <a class="action-button" [href]="announcement.link" target="_blank" rel="noopener noreferrer">
-          Learn More
-          <i class="fa fa-arrow-right"></i>
-        </a>
+      <div class="card-body">
+        <p [innerHTML]="announcement.content | linkify"></p>
       </div>
     </div>
   </div>
 
-  <!-- Empty state template -->
   <ng-template #empty>
     <div class="empty-state">
-      <i class="fa fa-bell-slash empty-icon"></i>
-      <h2>No Announcements</h2>
-      <p>Check back later for updates</p>
+      <div class="empty-icon">
+        <i class="fa fa-bell-slash" aria-hidden="true"></i>
+      </div>
+      <h3>No Announcements Yet</h3>
+      <p>New announcements will appear here</p>
     </div>
   </ng-template>
 </div>

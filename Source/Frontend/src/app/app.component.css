@@ -1,3 +1,4 @@
+/* Giữ nguyên các style hiện có cho nav và sidebar */
 app-nav {
     position: fixed;
     top: 0;
@@ -22,3 +23,126 @@ app-nav {
     padding-right: 15px;
 }
 
+/* Cập nhật style cho toast */
+.toast-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1050;
+    padding: 20px;
+}
+
+.custom-toast {
+    position: absolute;
+    right: 20px;
+    z-index: 1050;
+    min-width: 320px;
+    background: var(--bg-light);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.toast-header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: var(--card-bg-light);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.toast-header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--yellow-color);
+}
+
+.warning-icon {
+    color: var(--yellow-color);
+    margin-right: 12px;
+    font-size: 1.2rem;
+}
+
+.toast-title {
+    color: var(--text-dark);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 12px;
+    flex: 1;
+}
+
+.toast-subtitle {
+    color: var(--icon-color-light);
+    font-size: 0.85rem;
+    margin-right: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--icon-color-light);
+    padding: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.close-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-dark);
+}
+
+.toast-body {
+    padding: 15px;
+    background: var(--bg-light);
+}
+
+.continue-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--blue-color);
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 500;
+    width: 100%;
+}
+
+.continue-btn:hover {
+    background: var(--blue-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.continue-btn i {
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+}
+
+.continue-btn:hover i {
+    transform: translateX(3px);
+}

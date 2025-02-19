@@ -1,12 +1,32 @@
-<h2 class="mb-4 text-primary">Participants</h2>
-<div *ngFor="let participant of participants" class="card mb-4 shadow-sm">
-  <div class="card-body bg-dark text-white rounded">
-    <h5 class="card-title text-info">{{ participant.username }}</h5>
-    <p class="card-text text-white">
-      <strong>Email:</strong> {{ participant.email }}
-    </p>
-    <button *ngIf="isTeacher" class="btn btn-danger" (click)="removeParticipant(participant)">
-      Remove
-    </button>
+<div class="participants-container">
+  <div class="header">
+    <h2>
+      <i class="bi bi-people-fill"></i>
+      🙋‍♂️Class Participants
+    </h2>
+    <span class="participant-count">{{ participants.length }} members</span>
+  </div>
+
+  <div class="participants-grid">
+    <div *ngFor="let participant of participants" class="participant-card" [class.teacher]="participant.isTeacher">
+      <div class="avatar">
+        {{ participant.username.charAt(0).toUpperCase() }}
+      </div>
+      
+      <div class="participant-info">
+        <div class="name-section">
+          <h3>{{ participant.username }}</h3>
+          <span *ngIf="participant.isTeacher" class="badge">Teacher</span>
+        </div>
+        <p class="email">{{ participant.email }}</p>
+      </div>
+
+      <div class="actions" *ngIf="isTeacher && !participant.isTeacher">
+        <button class="remove-btn" (click)="removeParticipant(participant)">
+          <i class="bi bi-person-x-fill"></i>
+          <span class="tooltip">Remove participant</span>
+        </button>
+      </div>
+    </div>
   </div>
 </div>

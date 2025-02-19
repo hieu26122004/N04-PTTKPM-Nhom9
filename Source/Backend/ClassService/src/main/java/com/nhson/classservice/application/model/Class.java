@@ -1,5 +1,6 @@
 package com.nhson.classservice.application.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -46,11 +47,9 @@ public class Class implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id", referencedColumnName = "class_id")
-    @JsonManagedReference
     private List<Material> materials;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "class_id", referencedColumnName = "class_id")
-    @JsonManagedReference
     private List<Announcement> announcements;
 }

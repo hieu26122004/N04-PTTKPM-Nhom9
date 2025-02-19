@@ -1,21 +1,39 @@
-import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Announcement } from '../model/class/Announcement';
 
 @Component({
   selector: 'app-announcements',
-  standalone: false,
   templateUrl: './announcements.component.html',
-  styleUrl: './announcements.component.css',
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(10px)' }),
-        animate('200ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-      ])
-    ])
-  ]
+  styleUrls: ['./announcements.component.css'],
+  standalone: false
 })
-export class AnnouncementsComponent {
-  @Input() announcements: any[] = [];
+export class AnnouncementsComponent implements OnInit {
+  @Input() announcements: Announcement[] = [];
   @Input() isTeacher = false;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.sortAnnouncements();
+  }
+
+  getAnnouncementIcon(type: string): string {
+    switch (type.toLowerCase()) {
+      case 'urgent':
+        return 'fa-exclamation-triangle';
+      case 'important':
+        return 'fa-info-circle';
+      case 'info':
+      default:
+        return 'fa-bell';
+    }
+  }
+
+  isExpired(announcement: Announcement): boolean {
+    return announcement.expiresAt && new Date(announcement.expiresAt) < new Date();
+  }
+
+  private sortAnnouncements(): void {
+    this.announcements.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }
 }

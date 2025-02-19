@@ -1,56 +1,72 @@
-<div class="container class-container" *ngIf="clazz && inviteLink; else loading">
-  <!-- Class Header -->
-  <div class="class-header">
-    <h2>{{ clazz.className }}</h2>
-    <p>{{ clazz.description }}</p>
+<div class="class-dashboard" *ngIf="clazz && inviteLink; else loading">
+  <!-- Hero Section with Class Info -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="class-title">🏫 {{ clazz.className }}</h1>
+      <p class="class-description">🎉🎉🎉{{ clazz.description }}✨✨✨</p>
+      
+      <div class="class-stats">
+        <div class="stat-item">
+          <i class="bi bi-people-fill"></i>
+          <div class="stat-info">
+            <span class="stat-value">{{ clazz.participants?.length }}</span>
+            <span class="stat-label">Participants</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <i class="bi bi-calendar-event"></i>
+          <div class="stat-info">
+            <span class="stat-value">{{ clazz.createdDate | date:'mediumDate' }}</span>
+            <span class="stat-label">Created</span>
+          </div>
+        </div>
+        <div class="stat-item invite-link">
+          <button class="invite-button" (click)="copyToClipboard($event, inviteLink)">
+            <i class="bi bi-link-45deg"></i>
+            <div class="stat-info">
+              <span class="stat-label">Invite Link</span>
+              <span class="copy-hint">Click to copy</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Class Info -->
-  <div class="class-info">
-    <div class="info-item">
-      <i class="bi bi-people-fill"></i>
-      <span>{{ clazz.participants?.length }} Participants</span>
-    </div>
-    <div class="info-item">
-      <i class="bi bi-calendar-event"></i>
-      <span>Created: {{ clazz.createdDate | date }}</span>
-    </div>
-    <div class="intive-link">
-      <a (click)="copyToClipboard($event, inviteLink)">Invite Link</a>
-      <i class="fa fa-clipboard" aria-hidden="true"></i>
-    </div>
-  </div>
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button *ngFor="let tab of tabs; let i = index"
+              [class.active]="selectedTabIndex === i"
+              (click)="onTabChange(i)"
+              class="tab-button">
+        <i [class]="tab.icon"></i>
+        <span>{{ tab.name }}</span>
+      </button>
+    </nav>
 
-  <!-- Navigation Tabs -->
-  <nav class="tabs-nav">
-    <button *ngFor="let tab of tabs; let i = index"
-            [class.active]="selectedTabIndex === i"
-            (click)="onTabChange(i)">
-      <i [class]="tab.icon"></i>
-      {{ tab.name }}
-    </button>
-  </nav>
-
-  <!-- Tab Content -->
-  <div class="tab-content" [ngSwitch]="selectedTabIndex">
-    <app-participants *ngSwitchCase="0" 
-      [participants]="clazz.participants" 
-      [isTeacher]="isTeacher"/>
-    <app-announcements *ngSwitchCase="1" 
-      [announcements]="clazz.announcements"
-      [isTeacher]="isTeacher"/>
-    <app-materials *ngSwitchCase="2"
-    [materials]="clazz.materials"
-    [isTeacher]="isTeacher"/>
-    <app-assignments *ngSwitchCase="3"
-      [exams]="exams"
-      (takeExam)="takeExam($event)"/>
+    <!-- Tab Content -->
+    <div class="tab-container" [ngSwitch]="selectedTabIndex">
+      <app-participants *ngSwitchCase="0" 
+        [participants]="clazz.participants" 
+        [isTeacher]="isTeacher"/>
+      <app-announcements *ngSwitchCase="1" 
+        [announcements]="clazz.announcements"
+        [isTeacher]="isTeacher"/>
+      <app-materials *ngSwitchCase="2"
+        [materials]="clazz.materials"
+        [isTeacher]="isTeacher"/>
+      <app-assignments *ngSwitchCase="3"
+        [exams]="exams"
+        (takeExam)="takeExam($event)"/>
+    </div>
   </div>
 </div>
 
 <ng-template #loading>
-  <div class="loading">
-    <div class="spinner"></div>
+  <div class="loading-container">
+    <div class="loader"></div>
     <p>Loading class details...</p>
   </div>
 </ng-template>

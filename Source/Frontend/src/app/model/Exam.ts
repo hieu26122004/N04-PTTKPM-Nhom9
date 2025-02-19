@@ -11,7 +11,7 @@ export interface Exam {
     difficultyLevel: string;
     createdDate: string;
     lastUpdatedDate: string;
-    due: string;
+    due: Date;
     maxAttempts:number;
     status: string;
     type: string;
