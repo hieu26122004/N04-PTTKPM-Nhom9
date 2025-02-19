@@ -15,6 +15,8 @@ Dự án này nhằm xây dựng một hệ thống cung cấp và quản lý c�
 - **Cơ sở dữ liệu**:
   - **MySQL**: Lưu trữ dữ liệu quan hệ như thông tin người dùng, bài thi, nhóm học tập.
   - **MongoDB**: Lưu trữ dữ liệu phi cấu trúc như lịch sử làm bài, báo cáo chi tiết.
+  - **Redis** :
+- **Message Broker**: RabbitMQ
 - **Hỗ trợ nền tảng web**: Hệ thống hoạt động tốt trên trình duyệt web.
 
 ### Chức Năng Chính
